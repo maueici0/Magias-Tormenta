@@ -2,6 +2,7 @@ package Arcanistas;
 import Magias.Magia;
 import Enum.*;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -20,19 +21,37 @@ public class Feiticeiro extends Arcanista{
         System.out.println("1 - Dracônica");
         System.out.println("2 - Féerica");
         System.out.println("3 - Rubra");
-        System.out.print("Escolha uma opção: ");
-        int value = new Scanner(System.in).nextInt();
-        switch (value){
-            case 1:
-                linhagem = Linhagem.DRACONICA;
-                break;
-            case 2:
-                linhagem = Linhagem.FEERICA;
-                break;
-            case 3:
-                linhagem = Linhagem.RUBRA;
-                break;
-        }
+
+        Scanner scanner = new Scanner(System.in);
+        boolean flag = false;
+
+        do {
+            try {
+                System.out.print("Escolha uma opção: ");
+                int value = scanner.nextInt();
+                switch (value) {
+                    case 1:
+                        linhagem = Linhagem.DRACONICA;
+                        flag = true;
+                        break;
+                    case 2:
+                        linhagem = Linhagem.FEERICA;
+                        flag = true;
+                        break;
+                    case 3:
+                        linhagem = Linhagem.RUBRA;
+                        flag = true;
+                        break;
+                    default:
+                        System.out.println("Por favor, insira uma opção válida!");
+                        scanner.nextLine();
+                }
+            }
+            catch (InputMismatchException exception){
+                System.out.println("Por favor, insira uma opção válida!");
+                scanner.nextLine();
+            }
+        }while (!flag);
     }
 
 
@@ -46,7 +65,7 @@ public class Feiticeiro extends Arcanista{
     @Override
     public void adicionarMagia() {
         Magia magia = new Magia();
-        magia.setCD(calcularCD());
+        magia.setCd(calcularCd());
         magiasConhecidas.add(magia);
         ordernarMagias();
     }
@@ -55,7 +74,7 @@ public class Feiticeiro extends Arcanista{
     public void imprimirArcanista() {
         System.out.println("Nome: " + nome);
         System.out.println("Caminho e nível: " + caminho.getNome() + " " + nivel);
-        System.out.println("Mana: " + pontosManaMaximos +"/"+pontosManaAtuais);
+        System.out.println("Mana: " + pontosManaAtuais +"/"+pontosManaMaximos);
         System.out.println("Carisma +" + valorAtributoChave);
         System.out.println("Linhagem: "+linhagem.getNome());
     }

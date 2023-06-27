@@ -1,5 +1,6 @@
 package Magias;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Aprimoramento {
@@ -14,23 +15,38 @@ public class Aprimoramento {
         this.descricao = descricao;
     }
     public Aprimoramento(){
-        Scanner sc =  new Scanner(System.in);
+        Scanner scanner =  new Scanner(System.in);
 
         System.out.println("O aprimoramento é um truque?");
         System.out.println("1 - Sim;");
         System.out.println("2 - Não;");
-        System.out.print("Escolha sua opção: ");
-        int value = Integer.parseInt(sc.nextLine());
-        if (value == 1){
-            truque = true;
-        }
-        else {
-            System.out.print("Informe o custo adicional do aprimoramento: ");
-            custoAdicional = Integer.parseInt(sc.nextLine());
-        }
+        truque = false;
+
+        boolean flag = false;
+        do {
+            try {
+                System.out.print("Escolha sua opção: ");
+                int value = scanner.nextInt();
+                if (value == 1){
+                    truque = true;
+                    custoAdicional = 0;
+                }
+                else {
+                    System.out.print("Informe o custo adicional do aprimoramento: ");
+                    custoAdicional = scanner.nextInt();
+                }
+                flag = true;
+            }
+            catch (InputMismatchException exception){
+                System.out.println("Por favor, insira uma opção válida!");
+                scanner.nextLine();
+            }
+        }while (!flag);
 
         System.out.println("Escreva a descrição do aprimoramento: ");
-        descricao = sc.nextLine();
+        scanner.nextLine();
+        descricao = scanner.nextLine();
+
     }
 
 

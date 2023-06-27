@@ -2,6 +2,7 @@ package Arcanistas;
 import Magias.Magia;
 import Enum.*;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.Random;
 
@@ -19,29 +20,37 @@ public class Bruxo extends Arcanista{
         System.out.println("O seu bruxo possui um foco arcano?");
         System.out.println("1 - Sim;");
         System.out.println("2 - Não");
-        System.out.print("Escolha uma opção: ");
-        int value = new Scanner(System.in).nextInt();
-        switch (value){
-            case 1:
-                foco = true;
-                break;
-            case 2:
-                foco = false;
-                break;
-        }
+        foco = false;
+
+        Scanner scanner = new Scanner(System.in);
+        boolean flag = false;
+
+        do {
+            try {
+                System.out.print("Escolha uma opção: ");
+                int value = scanner.nextInt();
+                if (value == 1){
+                    foco = true;
+                }
+                flag = true;
+            }
+            catch (InputMismatchException exception){
+                System.out.println("Por favor, insira uma opção válida!");
+                scanner.nextLine();
+            }
+        }while (!flag);
     }
 
     public boolean isFoco() {
         return foco;
     }
-
     public void setFoco(boolean foco) {
         this.foco = foco;
     }
 
     public void adicionarMagia(){
         Magia magia = new Magia();
-        magia.setCD(calcularCD());
+        magia.setCd(calcularCd());
         magiasConhecidas.add(magia);
         ordernarMagias();
     }

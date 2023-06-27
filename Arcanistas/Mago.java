@@ -31,7 +31,7 @@ public class Mago extends Arcanista{
     public void adicionarMagia() {
         ArrayList<Magia> magias = grimorio.getMagiasAprendidas();
         Magia magia = new Magia();
-        magia.setCD(calcularCD());
+        magia.setCd(calcularCd());
         magias.add(magia);
         grimorio.setMagiasAprendidas(magias);
         grimorio.ordernarMagias();
@@ -70,7 +70,7 @@ public class Mago extends Arcanista{
     public void imprimirArcanista() {
         System.out.println("Nome: " + nome);
         System.out.println("Caminho e nível: " + caminho.getNome() + " " + nivel);
-        System.out.println("Mana: " + pontosManaMaximos +"/"+pontosManaAtuais);
+        System.out.println("Mana: " + pontosManaAtuais +"/"+pontosManaMaximos);
         System.out.println("Inteligência +" + valorAtributoChave);
     }
 }

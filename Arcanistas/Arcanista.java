@@ -2,6 +2,7 @@ package Arcanistas;
 import Magias.Magia;
 import Enum.*;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -97,7 +98,7 @@ public abstract class Arcanista implements lancarMagias{
 
 
     // Funções
-    public int calcularCD(){
+    public int calcularCd(){
         return (getNivel()/2) + getValorAtributoChave();
     }
     public void ordernarMagias(){
@@ -115,13 +116,30 @@ public abstract class Arcanista implements lancarMagias{
         }
     }
     public void selecionarMagia(){
-        if(magiasConhecidas.isEmpty()==false){
+        if(!magiasConhecidas.isEmpty()){
             listarMagias();
-            System.out.print("Escolha uma magia para ler sua descrição: ");
             Scanner scanner = new Scanner(System.in);
-            int value = Integer.parseInt(scanner.nextLine()) - 1;
-            System.out.println();
-            magiasConhecidas.get(value).imprimirMagia();
+            boolean flag = false;
+            do {
+                try {
+                    System.out.print("Escolha uma magia para ler sua descrição: ");
+                    int value = scanner.nextInt();
+                    if(value > magiasConhecidas.size() || value<=0){
+                        System.out.println("Por favor, insira uma opção válida!");
+                        scanner.nextLine();
+                    }
+                    else {
+                        value--;
+                        System.out.println();
+                        magiasConhecidas.get(value).imprimirMagia();
+                        flag = true;
+                    }
+                }
+                catch (InputMismatchException exception){
+                    System.out.println("Por favor, insira uma opção válida!");
+                    scanner.nextLine();
+                }
+            }while (!flag);
         }
         else {
             System.out.println("Não há magias conhecidas!");
@@ -136,12 +154,27 @@ public abstract class Arcanista implements lancarMagias{
             int value = Integer.parseInt(scanner.nextLine()) - 1;
             int custo = magiasConhecidas.get(value).getCirculo().getCusto();
             if (magiasConhecidas.get(value).getAprimoramentos().isEmpty()==false){
-                magiasConhecidas.get(value).imprimirAprimoramentos();
+                AtomicInteger aux = new AtomicInteger(1);
+                magiasConhecidas.get(value).getAprimoramentos().forEach(aprimoramento ->
+                    System.out.println(aux.getAndIncrement() + " - " + aprimoramento.toString()));
                 System.out.println("0 - Nenhum");
-                System.out.print("Escolha um aprimoramento para lançar: ");
-                int aux = Integer.parseInt(scanner.nextLine());
-                if(aux!=0){
-                    custo += magiasConhecidas.get(value).getAprimoramentos().get(aux-1).getCustoAdicional();
+
+                int auxAprimoramento = 0;
+                boolean flag = false;
+                do {
+                    try {
+                        System.out.print("Escolha um aprimoramento para lançar: ");
+                        auxAprimoramento = scanner.nextInt();
+                        scanner.nextLine();
+                        flag = true;
+                    }
+                    catch (InputMismatchException exception){
+                        System.out.println("Por favor, insira uma opção válida!");
+                        scanner.nextLine();
+                    }
+                }while (!flag);
+                if(auxAprimoramento!=0){
+                    custo += magiasConhecidas.get(value).getAprimoramentos().get(auxAprimoramento-1).getCustoAdicional();
                 }
             }
             return custo;

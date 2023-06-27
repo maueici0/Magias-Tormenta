@@ -6,35 +6,56 @@ import Magias.Aprimoramento;
 import Magias.Magia;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Personagens {
-    public static ArrayList<Arcanista> criarPersonagem(ArrayList<Arcanista> personagem){
-        Scanner sc = new Scanner(System.in);
+    public static void  criarPersonagem(ArrayList<Arcanista> personagem){
+        Scanner scanner = new Scanner(System.in);
+
         System.out.println("Escolha o Caminho do Arcanista:");
         System.out.println("1 - Bruxo");
         System.out.println("2 - Feiticeiro");
         System.out.println("3 - Mago");
-        System.out.print("Escolha a opção correspondente: ");
-        int aux = sc.nextInt();
-        System.out.println();
-        switch (aux){
-            case 1:
-                Bruxo bruxo = new Bruxo();
-                personagem.add(bruxo);
-                break;
-            case 2:
-                Feiticeiro feiticeiro = new Feiticeiro();
-                personagem.add(feiticeiro);
-                break;
-            case 3:
-                Mago mago = new Mago();
-                personagem.add(mago);
-                break;
-        }
-        System.out.println();
-        System.out.println("Personagem criado com sucesso!");
-        return personagem;
+        System.out.println("0 - Cancelar");
+
+        boolean flag = false;
+        do {
+            try {
+                System.out.print("Escolha a opção correspondente: ");
+                int value = scanner.nextInt();
+                switch (value){
+                    case 1:
+                        System.out.println();
+                        Bruxo bruxo = new Bruxo();
+                        personagem.add(bruxo);
+                        System.out.println();
+                        System.out.println("Personagem criado com sucesso!");
+                        break;
+                    case 2:
+                        System.out.println();
+                        Feiticeiro feiticeiro = new Feiticeiro();
+                        personagem.add(feiticeiro);
+                        System.out.println();
+                        System.out.println("Personagem criado com sucesso!");
+                        break;
+                    case 3:
+                        System.out.println();
+                        Mago mago = new Mago();
+                        personagem.add(mago);
+                        System.out.println();
+                        System.out.println("Personagem criado com sucesso!");
+                        break;
+                    default:
+                        System.out.println("Criação cancelada!");
+                }
+                flag = true;
+            }
+            catch (InputMismatchException exception){
+                System.out.println("Por favor, insira uma opção válida!");
+                scanner.nextLine();
+            }
+        }while (!flag);
     }
     public static void listarPersonagens(ArrayList<Arcanista> personagens){
         if (personagens.size()==0){

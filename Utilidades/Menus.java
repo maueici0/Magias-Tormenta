@@ -2,13 +2,11 @@ package Utilidades;
 
 public class Menus {
     public static void imprimirMenuInicial(){
-        System.out.println("Bem-Vindo, o que deseja realizar?");
         System.out.println("1 - Criar Personagem;");
         System.out.println("2 - Listar Personagens;");
         System.out.println("3 - Selecionar Personagem;");
         System.out.println("4 - Remover Personagem;");
         System.out.println("0 - Encerrar Programa;");
-        System.out.print("Escolha sua opção: ");
     }
     public static void listarFuncoesBruxo(){
         System.out.println("1 - Informações do personagem;");

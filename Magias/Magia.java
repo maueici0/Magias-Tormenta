@@ -1,6 +1,8 @@
 package Magias;
+
 import Enum.*;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Magia {
@@ -15,11 +17,11 @@ public class Magia {
     private String duracao;
     private String resistencia;
     private String descricao;
-    private int CD;
+    private int cd;
     private ArrayList<Aprimoramento> aprimoramentos;
 
 
-    public Magia(String nome, CirculosMagia circulo, Escolas escola, String alcance, String area, String alvo, String efeito, String execucao, String duracao, String resistencia, String descricao, int CD, ArrayList<Aprimoramento> aprimoramentos) {
+    public Magia(String nome, CirculosMagia circulo, Escolas escola, String alcance, String area, String alvo, String efeito, String execucao, String duracao, String resistencia, String descricao, int cd, ArrayList<Aprimoramento> aprimoramentos) {
         this.nome = nome;
         this.circulo = circulo;
         this.escola = escola;
@@ -31,13 +33,14 @@ public class Magia {
         this.duracao = duracao;
         this.resistencia = resistencia;
         this.descricao = descricao;
-        this.CD = CD;
+        this.cd = cd;
         this.aprimoramentos = aprimoramentos;
     }
     public Magia(){
-        Scanner sc = new Scanner(System.in);
+
+        Scanner scanner = new Scanner(System.in);
         System.out.print("Infome o nome da magia: ");
-        nome = sc.nextLine();
+        nome = scanner.nextLine();
 
         System.out.println("Informe o circulo da magia: ");
         System.out.println("1 - Primeiro Circulo;");
@@ -45,25 +48,49 @@ public class Magia {
         System.out.println("3 - Terceiro Circulo;");
         System.out.println("4 - Quarto Circulo;");
         System.out.println("5 - Quinto Circulo;");
-        System.out.print("Escolha sua opção: ");
-        int value = Integer.parseInt(sc.nextLine());
-        switch (value) {
-            case 1:
-                circulo = CirculosMagia.PRIMEIRO;
-                break;
-            case 2:
-                circulo = CirculosMagia.SEGUNDO;
-                break;
-            case 3:
-                circulo = CirculosMagia.TERCEIRO;
-                break;
-            case 4:
-                circulo = CirculosMagia.QUARTO;
-                break;
-            case 5:
-                circulo = CirculosMagia.QUINTO;
-                break;
-        }
+
+        boolean flag = false;
+        do {
+            try {
+                System.out.print("Escolha sua opção: ");
+                int value = scanner.nextInt();
+                switch (value) {
+                    case 1:
+                        circulo = CirculosMagia.PRIMEIRO;
+                        flag = true;
+                        scanner.nextLine();
+                        break;
+                    case 2:
+                        circulo = CirculosMagia.SEGUNDO;
+                        flag = true;
+                        scanner.nextLine();
+                        break;
+                    case 3:
+                        circulo = CirculosMagia.TERCEIRO;
+                        flag = true;
+                        scanner.nextLine();
+                        break;
+                    case 4:
+                        circulo = CirculosMagia.QUARTO;
+                        flag = true;
+                        scanner.nextLine();
+                        break;
+                    case 5:
+                        circulo = CirculosMagia.QUINTO;
+                        flag = true;
+                        scanner.nextLine();
+                        break;
+                    default:
+                        System.out.println("Por favor, insira uma opção válida!");
+                        scanner.nextLine();
+                }
+            }
+            catch (InputMismatchException exception){
+                System.out.println("Por favor, insira uma opção válida!");
+                scanner.nextLine();
+            }
+        }while (!flag);
+
 
         System.out.println("Informe a escola da magia:");
         System.out.println("1 - Abjuração;");
@@ -74,122 +101,217 @@ public class Magia {
         System.out.println("6 - Ilusão;");
         System.out.println("7 - Necromancia;");
         System.out.println("8 - Transmutação;");
-        System.out.print("Escolha sua opção: ");
-        value = Integer.parseInt(sc.nextLine());
-        switch (value){
-            case 1:
-                escola = Escolas.ABJURACAO;
-                break;
-            case 2:
-                escola = Escolas.ADIVINHACAO;
-                break;
-            case 3:
-                escola = Escolas.CONVOCACAO;
-                break;
-            case 4:
-                escola = Escolas.ENCANTAMENTO;
-                break;
-            case 5:
-                escola = Escolas.EVOCACAO;
-                break;
-            case 6:
-                escola = Escolas.ILUSAO;
-                break;
-            case 7:
-                escola = Escolas.NECROMANCIA;
-                break;
-            case 8:
-                escola = Escolas.TRANSMUTACAO;
-                break;
-        }
+
+        flag = false;
+        do{
+            try {
+                System.out.print("Escolha sua opção: ");
+                int value = scanner.nextInt();
+                switch (value) {
+                    case 1:
+                        escola = Escolas.ABJURACAO;
+                        flag = true;
+                        scanner.nextLine();
+                        break;
+                    case 2:
+                        escola = Escolas.ADIVINHACAO;
+                        flag = true;
+                        scanner.nextLine();
+                        break;
+                    case 3:
+                        escola = Escolas.CONVOCACAO;
+                        flag = true;
+                        scanner.nextLine();
+                        break;
+                    case 4:
+                        escola = Escolas.ENCANTAMENTO;
+                        flag = true;
+                        scanner.nextLine();
+                        break;
+                    case 5:
+                        escola = Escolas.EVOCACAO;
+                        flag = true;
+                        scanner.nextLine();
+                        break;
+                    case 6:
+                        escola = Escolas.ILUSAO;
+                        flag = true;
+                        scanner.nextLine();
+                        break;
+                    case 7:
+                        escola = Escolas.NECROMANCIA;
+                        flag = true;
+                        scanner.nextLine();
+                        break;
+                    case 8:
+                        escola = Escolas.TRANSMUTACAO;
+                        flag = true;
+                        scanner.nextLine();
+                        break;
+                    default:
+                        System.out.println("Por favor, insira uma opção válida!");
+                        scanner.nextLine();
+                }
+            }
+            catch (InputMismatchException exception){
+                System.out.println("Por favor, insira uma opção válida!");
+                scanner.nextLine();
+            }
+        }while (!flag);
+
+
 
         System.out.print("Informe a execução da magia: ");
-        execucao = sc.nextLine();
+        execucao = scanner.nextLine();
 
         System.out.print("Informe o alcance da magia: ");
-        alcance = sc.nextLine();
+        alcance = scanner.nextLine();
 
         System.out.print("Informe a duração da magia: ");
-        duracao = sc.nextLine();
+        duracao = scanner.nextLine();
 
         System.out.println("A magia possui área?");
         System.out.println("1 - Sim;");
         System.out.println("2 - Não;");
-        System.out.print("Escolha sua opção: ");
-        value = Integer.parseInt(sc.nextLine());
-        switch (value){
-            case 1:
-                System.out.print("Informe a área da magia: ");
-                area = sc.nextLine();
-                break;
-            case 2:
-                area = null;
-                break;
-        }
+        area = null;
+
+        flag=false;
+        do {
+            try {
+                System.out.print("Escolha sua opção: ");
+                int value = scanner.nextInt();
+                if (value == 1){
+                    System.out.print("Informe a área da magia: ");
+                    scanner.nextLine();
+                    area = scanner.nextLine();
+                }
+                flag=true;
+            }
+            catch (InputMismatchException exception){
+                System.out.println("Por favor, insira uma opção válida!");
+                scanner.nextLine();
+            }
+        }while (!flag);
 
         System.out.println("A magia possui efeito?");
         System.out.println("1 - Sim;");
         System.out.println("2 - Não;");
         System.out.print("Escolha sua opção: ");
-        value = Integer.parseInt(sc.nextLine());
-        switch (value){
-            case 1:
-                System.out.print("Informe efeito da magia: ");
-                efeito = sc.nextLine();
-                break;
-            case 2:
-                efeito = null;
-                break;
-        }
+        efeito = null;
+
+        flag=false;
+        do {
+            try {
+                System.out.print("Escolha sua opção: ");
+                int value = scanner.nextInt();
+                if (value == 1){
+                    System.out.print("Informe efeito da magia: ");
+                    scanner.nextLine();
+                    efeito = scanner.nextLine();
+                }
+                flag=true;
+            }
+            catch (InputMismatchException exception){
+                System.out.println("Por favor, insira uma opção válida!");
+                scanner.nextLine();
+            }
+        }while (!flag);
 
         System.out.println("A magia possui alvo?");
         System.out.println("1 - Sim;");
         System.out.println("2 - Não;");
-        System.out.print("Escolha sua opção: ");
-        value = Integer.parseInt(sc.nextLine());
-        switch (value){
-            case 1:
-                System.out.print("Informe o(s) alvo(s) da magia: ");
-                alvo = sc.nextLine();
-                break;
-            case 2:
-                alvo = null;
-                break;
-        }
+        alvo = null;
+
+        flag=false;
+        do {
+            try {
+                System.out.print("Escolha sua opção: ");
+                int value = scanner.nextInt();
+                if (value == 1){
+                    System.out.print("Informe o(s) alvo(s) da magia: ");
+                    scanner.nextLine();
+                    alvo = scanner.nextLine();
+                }
+                flag=true;
+            }
+            catch (InputMismatchException exception){
+                System.out.println("Por favor, insira uma opção válida!");
+                scanner.nextLine();
+            }
+        }while (!flag);
 
         System.out.println("A magia possui resistência?");
         System.out.println("1 - Sim;");
         System.out.println("2 - Não;");
-        System.out.print("Escolha sua opção: ");
-        value = Integer.parseInt(sc.nextLine());
-        switch (value){
-            case 1:
-                System.out.print("Informe a resistencia da magia: ");
-                resistencia = sc.nextLine();
-                break;
-            case 2:
-                resistencia = null;
-                break;
-        }
+        resistencia =  null;
+
+        flag=false;
+        do {
+            try {
+                System.out.print("Escolha sua opção: ");
+                int value = scanner.nextInt();
+                if (value == 1){
+                    System.out.print("Informe a resistencia da magia: ");
+                    scanner.nextLine();
+                    resistencia = scanner.nextLine();
+                }
+                flag=true;
+            }
+            catch (InputMismatchException exception){
+                System.out.println("Por favor, insira uma opção válida!");
+                scanner.nextLine();
+            }
+        }while (!flag);
 
         System.out.println("Escreva a descrição da magia: ");
-        descricao = sc.nextLine();
+        descricao = scanner.nextLine();
 
 
         System.out.println("A magia possui aprimoramentos?");
         System.out.println("1 - Sim;");
         System.out.println("2 - Não;");
-        System.out.print("Escolha sua opção: ");
-        value = Integer.parseInt(sc.nextLine());
         aprimoramentos = new ArrayList<Aprimoramento>();
-        while (value!=2){
-            aprimoramentos.add(new Aprimoramento());
 
-            System.out.println("A magia possui mais aprimoramento?");
-            System.out.println("1 - Sim;");
-            System.out.println("2 - Não;");
-            System.out.print("Escolha sua opção: ");
-            value = Integer.parseInt(sc.nextLine());
+        flag=false;
+        do {
+            try {
+                System.out.print("Escolha sua opção: ");
+                int value = scanner.nextInt();
+                if (value == 1){
+                    aprimoramentos.add(new Aprimoramento());
+                }
+                flag=true;
+            }
+            catch (InputMismatchException exception){
+                System.out.println("Por favor, insira uma opção válida!");
+                scanner.nextLine();
+            }
+        }while (!flag);
+
+
+        if (!aprimoramentos.isEmpty()){
+            int value=1;
+            do{
+                System.out.println("A magia possui mais aprimoramento?");
+                System.out.println("1 - Sim;");
+                System.out.println("2 - Não;");
+
+                flag=false;
+                do {
+                    try {
+                        System.out.print("Escolha sua opção: ");
+                        value = scanner.nextInt();
+                        if (value == 1){
+                            aprimoramentos.add(new Aprimoramento());
+                        }
+                        flag = true;
+                    }
+                    catch (InputMismatchException exception){
+                        System.out.println("Por favor, insira uma opção válida!");
+                        scanner.nextLine();
+                    }
+                }while (!flag);
+            }while (value==1);
         }
     }
 
@@ -242,11 +364,11 @@ public class Magia {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-    public int getCD() {
-        return CD;
+    public int getCd() {
+        return cd;
     }
-    public void setCD(int CD) {
-        this.CD = CD;
+    public void setCd(int cd) {
+        this.cd = cd;
     }
     public ArrayList<Aprimoramento> getAprimoramentos() {
         return aprimoramentos;
@@ -261,7 +383,7 @@ public class Magia {
         }
     }
     public void imprimirMagia(){
-        System.out.println(nome);
+        System.out.println(nome + " [" + circulo.getCusto()+"PM]");
         System.out.println(escola.getNome() + " " + circulo.getValue()+"ª círculo");
         System.out.println("Execução: " + execucao.toLowerCase());
         System.out.println("Alcance: " + alcance.toLowerCase());
@@ -269,7 +391,7 @@ public class Magia {
         if (alvo!=null) System.out.println("Alvo: " + alvo.toLowerCase());
         if(area!=null) System.out.println("Área: " + area.toLowerCase());
         System.out.println("Duração: " + duracao.toLowerCase());
-        if(resistencia!=null) System.out.println("Resistência: " + resistencia.toLowerCase() + " (" + CD + ")");
+        if(resistencia!=null) System.out.println("Resistência: " + resistencia.toLowerCase() + " (" + cd + ")");
         System.out.println(descricao);
         imprimirAprimoramentos();
     }

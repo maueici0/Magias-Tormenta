@@ -1,5 +1,6 @@
 package Arcanistas;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -21,11 +22,12 @@ public class Grimorio {
         this.magiasAprendidas = magiasAprendidas;
     }
 
+
     public void ordernarMagias(){
         magiasAprendidas.sort((o1, o2) -> o1.getNome().compareTo(o2.getNome()));
     }
     public void listarMagias(){
-        if (magiasAprendidas.isEmpty() == false){
+        if (!magiasAprendidas.isEmpty()){
             System.out.println("Magias Aprendidas:");
             AtomicInteger aux = new AtomicInteger(1);
             magiasAprendidas.forEach(magia -> {
@@ -37,21 +39,61 @@ public class Grimorio {
         }
     }
     public ArrayList<Magia> decorarMagias() {
+
         ArrayList<Magia> magias = new ArrayList<>();
-        if (magiasAprendidas.isEmpty() == false) {
-            Scanner sc = new Scanner(System.in);
-            System.out.println("Você pode decorar " + magiasAprendidas.size() / 2 + " magia(s):");
-            int aux = 0;
-            while (aux <= magiasAprendidas.size() / 2) {
-                if (aux != 0) {
-                    System.out.println("Você aind pode decorar mais " + ((magiasAprendidas.size() / 2) - aux) + " magia(s).");
+
+        if (!magiasAprendidas.isEmpty()) {
+
+            Scanner scanner = new Scanner(System.in);
+            if (magiasAprendidas.size() == 1){
+                System.out.println("Você pode decorar somente uma magia! ");
+                System.out.println(" - "+magiasAprendidas.get(0).getNome());
+                magias.add(magiasAprendidas.get(0));
+            }
+            else {
+
+                ArrayList<Magia> magiasTemp = (ArrayList<Magia>) magiasAprendidas.clone();
+                System.out.println("Você pode decorar " + magiasAprendidas.size() / 2 + " magia(s):");
+
+                int aux = 0;
+                while ( aux < (magiasAprendidas.size()/2)) {
+
+                    if (aux != 0) {
+                        System.out.println("Você ainda pode decorar mais " + ((magiasAprendidas.size() / 2) - aux) + " magia(s).");
+                    }
+
+                    System.out.println("Magias Aprendidas:");
+                    AtomicInteger auxImprimir = new AtomicInteger(1);
+                    magiasTemp.forEach(magia -> {
+                        System.out.println(auxImprimir.getAndIncrement() + " - " + magia.getNome());
+                    });
+
+                    boolean flag = false;
+
+                    do {
+                        try {
+                            System.out.print("Escolha uma opção: ");
+                            int value = scanner.nextInt();
+
+                            if (value > magiasTemp.size() || value<=0){
+                                System.out.println("Por favor, insira uma opção válida!");
+                                scanner.nextLine();
+                            }
+                            else {
+                                magias.add(magiasTemp.get(value - 1));
+                                magiasTemp.remove(value-1);
+                                scanner.nextLine();
+                                flag = true;
+                            }
+                        }
+                        catch (InputMismatchException exception){
+                            System.out.println("Por favor, insira uma opção válida!");
+                            scanner.nextLine();
+                        }
+                    }while (!flag);
+
+                    aux = aux + 1;
                 }
-                System.out.println("Selecione uma magia para decorar:");
-                listarMagias();
-                System.out.print("Escolha uma opção: ");
-                int value = Integer.parseInt(sc.nextLine());
-                magias.add(magiasAprendidas.get(value - 1));
-                aux++;
             }
         } else {
             System.out.println("Você não possui magias aprendidas!");
