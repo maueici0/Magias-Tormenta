@@ -153,7 +153,7 @@ public abstract class Arcanista implements lancarMagias{
             Scanner scanner = new Scanner(System.in);
             int value = Integer.parseInt(scanner.nextLine()) - 1;
             int custo = magiasConhecidas.get(value).getCirculo().getCusto();
-            if (magiasConhecidas.get(value).getAprimoramentos().isEmpty()==false){
+            if (!magiasConhecidas.get(value).getAprimoramentos().isEmpty()){
                 AtomicInteger aux = new AtomicInteger(1);
                 magiasConhecidas.get(value).getAprimoramentos().forEach(aprimoramento ->
                     System.out.println(aux.getAndIncrement() + " - " + aprimoramento.toString()));
