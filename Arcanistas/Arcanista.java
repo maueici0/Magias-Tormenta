@@ -46,6 +46,98 @@ public abstract class Arcanista implements lancarMagias{
     }
 
 
+
+    // Funções
+    public int calcularCd(){
+        return (getNivel()/2) + getValorAtributoChave()+10;
+    }
+    public void ordernarMagias(){
+        magiasConhecidas.sort((o1, o2) -> o1.getNome().compareTo(o2.getNome()));
+    }
+    public void listarMagias() {
+        if (!magiasConhecidas.isEmpty()){
+            AtomicInteger aux = new AtomicInteger(1);
+            magiasConhecidas.forEach(magia -> {
+                System.out.println(aux.getAndIncrement() + " - " + magia.getNome());
+            });
+        }
+        else {
+            System.out.println("Não há magias conhecidas!");
+        }
+    }
+    public void selecionarMagia(){
+        if(!magiasConhecidas.isEmpty()){
+            listarMagias();
+            Scanner scanner = new Scanner(System.in);
+            boolean flag = false;
+            do {
+                try {
+                    System.out.print("Escolha uma magia para ler sua descrição: ");
+                    int value = scanner.nextInt();
+                    if(value > magiasConhecidas.size() || value<=0){
+                        System.out.println("Por favor, insira uma opção válida!");
+                        scanner.nextLine();
+                    }
+                    else {
+                        value--;
+                        System.out.println();
+                        magiasConhecidas.get(value).imprimirMagia();
+                        flag = true;
+                    }
+                }
+                catch (InputMismatchException exception){
+                    System.out.println("Por favor, insira uma opção válida!");
+                    scanner.nextLine();
+                }
+            }while (!flag);
+        }
+        else {
+            System.out.println("Não há magias conhecidas!");
+        }
+    }
+    public int lancarMagia(){
+        if (!magiasConhecidas.isEmpty()){
+            System.out.println("Escolha a magia para lançar:");
+            listarMagias();
+            System.out.print("Escolha uma opção: ");
+            Scanner scanner = new Scanner(System.in);
+            int value = Integer.parseInt(scanner.nextLine()) - 1;
+            int custo = magiasConhecidas.get(value).getCirculo().getCusto();
+            if (!magiasConhecidas.get(value).getAprimoramentos().isEmpty()){
+                AtomicInteger aux = new AtomicInteger(1);
+                magiasConhecidas.get(value).getAprimoramentos().forEach(aprimoramento ->
+                    System.out.println(aux.getAndIncrement() + " - " + aprimoramento.toString()));
+                System.out.println("0 - Nenhum");
+
+                int auxAprimoramento = 0;
+                boolean flag = false;
+                do {
+                    try {
+                        System.out.print("Escolha um aprimoramento para lançar: ");
+                        auxAprimoramento = scanner.nextInt();
+                        scanner.nextLine();
+                        flag = true;
+                    }
+                    catch (InputMismatchException exception){
+                        System.out.println("Por favor, insira uma opção válida!");
+                        scanner.nextLine();
+                    }
+                }while (!flag);
+                if(auxAprimoramento!=0){
+                    custo += magiasConhecidas.get(value).getAprimoramentos().get(auxAprimoramento-1).getCustoAdicional();
+                }
+            }
+            return custo;
+        }
+        return 0;
+    }
+    public void atualizarMana(int valor){
+        pontosManaAtuais += valor;
+    }
+    public abstract void imprimirArcanista();
+    public abstract void adicionarMagia();
+
+
     // Getter and Setter
     public String getNome() {
         return nome;
@@ -95,95 +187,4 @@ public abstract class Arcanista implements lancarMagias{
     public void setMagiasConhecidas(ArrayList<Magia> magiasConhecidas) {
         this.magiasConhecidas = magiasConhecidas;
     }
-
-
-    // Funções
-    public int calcularCd(){
-        return (getNivel()/2) + getValorAtributoChave();
-    }
-    public void ordernarMagias(){
-        magiasConhecidas.sort((o1, o2) -> o1.getNome().compareTo(o2.getNome()));
-    }
-    public void listarMagias() {
-        if (magiasConhecidas.isEmpty() == false){
-            AtomicInteger aux = new AtomicInteger(1);
-            magiasConhecidas.forEach(magia -> {
-                System.out.println(aux.getAndIncrement() + " - " + magia.getNome());
-            });
-        }
-        else {
-            System.out.println("Não há magias conhecidas!");
-        }
-    }
-    public void selecionarMagia(){
-        if(!magiasConhecidas.isEmpty()){
-            listarMagias();
-            Scanner scanner = new Scanner(System.in);
-            boolean flag = false;
-            do {
-                try {
-                    System.out.print("Escolha uma magia para ler sua descrição: ");
-                    int value = scanner.nextInt();
-                    if(value > magiasConhecidas.size() || value<=0){
-                        System.out.println("Por favor, insira uma opção válida!");
-                        scanner.nextLine();
-                    }
-                    else {
-                        value--;
-                        System.out.println();
-                        magiasConhecidas.get(value).imprimirMagia();
-                        flag = true;
-                    }
-                }
-                catch (InputMismatchException exception){
-                    System.out.println("Por favor, insira uma opção válida!");
-                    scanner.nextLine();
-                }
-            }while (!flag);
-        }
-        else {
-            System.out.println("Não há magias conhecidas!");
-        }
-    }
-    public int lancarMagia(){
-        if (magiasConhecidas.isEmpty()==false){
-            System.out.println("Escolha a magia para lançar:");
-            listarMagias();
-            System.out.print("Escolha uma opção: ");
-            Scanner scanner = new Scanner(System.in);
-            int value = Integer.parseInt(scanner.nextLine()) - 1;
-            int custo = magiasConhecidas.get(value).getCirculo().getCusto();
-            if (!magiasConhecidas.get(value).getAprimoramentos().isEmpty()){
-                AtomicInteger aux = new AtomicInteger(1);
-                magiasConhecidas.get(value).getAprimoramentos().forEach(aprimoramento ->
-                    System.out.println(aux.getAndIncrement() + " - " + aprimoramento.toString()));
-                System.out.println("0 - Nenhum");
-
-                int auxAprimoramento = 0;
-                boolean flag = false;
-                do {
-                    try {
-                        System.out.print("Escolha um aprimoramento para lançar: ");
-                        auxAprimoramento = scanner.nextInt();
-                        scanner.nextLine();
-                        flag = true;
-                    }
-                    catch (InputMismatchException exception){
-                        System.out.println("Por favor, insira uma opção válida!");
-                        scanner.nextLine();
-                    }
-                }while (!flag);
-                if(auxAprimoramento!=0){
-                    custo += magiasConhecidas.get(value).getAprimoramentos().get(auxAprimoramento-1).getCustoAdicional();
-                }
-            }
-            return custo;
-        }
-        return 0;
-    }
-    public void atualizarMana(int valor){
-        pontosManaAtuais += valor;
-    }
-    public abstract void imprimirArcanista();
-    public abstract void adicionarMagia();
 }

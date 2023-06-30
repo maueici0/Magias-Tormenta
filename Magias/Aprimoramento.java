@@ -63,9 +63,10 @@ public class Aprimoramento {
         this.descricao = descricao;
     }
 
+
     @Override
     public String toString(){
-        if (truque == false){
+        if (!truque){
             return "+" + custoAdicional + " PM: " + descricao;
         }
         else {

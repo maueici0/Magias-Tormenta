@@ -7,6 +7,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Mago extends Arcanista{
     private Grimorio grimorio;
 
+
     public Mago(String nome, int nivel, Caminhos caminho, int pontosManaMaximos, int pontosManaAtuais, AtributosChave atributoChave, int valorAtributoChave, ArrayList<Magia> magiasConhecidas, Grimorio grimorio) {
         super(nome, nivel, caminho, pontosManaMaximos, pontosManaAtuais, atributoChave, valorAtributoChave, magiasConhecidas);
         this.grimorio = grimorio;
@@ -27,6 +28,22 @@ public class Mago extends Arcanista{
     }
 
 
+    public void decorarMagias(){
+        ArrayList<Magia> magias = grimorio.decorarMagias();
+        setMagiasConhecidas(magias);
+    }
+    public void listarMagiasGrimorio(){
+        if (!grimorio.getMagiasAprendidas().isEmpty()){
+            System.out.println("Magias Aprendidas:");
+            AtomicInteger aux = new AtomicInteger(1);
+            magiasConhecidas.forEach(magia -> {
+                System.out.println(aux.getAndIncrement() + " - " + magia.getNome());
+            });
+        }
+        else {
+            System.out.println("Não há magias aprendidas no grimório");
+        }
+    }
     @Override
     public void adicionarMagia() {
         ArrayList<Magia> magias = grimorio.getMagiasAprendidas();
@@ -38,7 +55,7 @@ public class Mago extends Arcanista{
     }
     @Override
     public void listarMagias(){
-        if (magiasConhecidas.isEmpty() == false){
+        if (!magiasConhecidas.isEmpty()){
             System.out.println("Magias Decoradas:");
             AtomicInteger aux = new AtomicInteger(1);
             magiasConhecidas.forEach(magia -> {
@@ -49,23 +66,6 @@ public class Mago extends Arcanista{
             System.out.println("Não há magias decoradas!");
         }
     }
-    public void decorarMagias(){
-        ArrayList<Magia> magias = grimorio.decorarMagias();
-        setMagiasConhecidas(magias);
-    }
-    public void listarMagiasGrimorio(){
-        if (grimorio.getMagiasAprendidas().isEmpty() == false){
-            System.out.println("Magias Aprendidas:");
-            AtomicInteger aux = new AtomicInteger(1);
-            magiasConhecidas.forEach(magia -> {
-                System.out.println(aux.getAndIncrement() + " - " + magia.getNome());
-            });
-        }
-        else {
-            System.out.println("Não há magias aprendidas no grimório");
-        }
-    }
-
     @Override
     public void imprimirArcanista() {
         System.out.println("Nome: " + nome);

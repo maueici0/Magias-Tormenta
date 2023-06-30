@@ -316,6 +316,26 @@ public class Magia {
     }
 
 
+    public void imprimirAprimoramentos(){
+        if(!aprimoramentos.isEmpty()) {
+            aprimoramentos.forEach(aprimoramento -> System.out.println(aprimoramento.toString()));
+        }
+    }
+    public void imprimirMagia(){
+        System.out.println(nome + " [" + circulo.getCusto()+"PM]");
+        System.out.println(escola.getNome() + " " + circulo.getValue()+"ª círculo");
+        System.out.println("Execução: " + execucao.toLowerCase());
+        System.out.println("Alcance: " + alcance.toLowerCase());
+        if (efeito!=null) System.out.println("Efeito: " + efeito.toLowerCase());
+        if (alvo!=null) System.out.println("Alvo: " + alvo.toLowerCase());
+        if(area!=null) System.out.println("Área: " + area.toLowerCase());
+        System.out.println("Duração: " + duracao.toLowerCase());
+        if(resistencia!=null) System.out.println("Resistência: " + resistencia.toLowerCase() + " (" + cd + ")");
+        System.out.println(descricao);
+        imprimirAprimoramentos();
+    }
+
+
     public String getNome() {
         return nome;
     }
@@ -373,26 +393,8 @@ public class Magia {
     public ArrayList<Aprimoramento> getAprimoramentos() {
         return aprimoramentos;
     }
+
     public void setAprimoramentos(ArrayList<Aprimoramento> aprimoramentos) {
         this.aprimoramentos = aprimoramentos;
-    }
-
-    public void imprimirAprimoramentos(){
-        if(aprimoramentos.isEmpty()==false) {
-            aprimoramentos.forEach(aprimoramento -> System.out.println(aprimoramento.toString()));
-        }
-    }
-    public void imprimirMagia(){
-        System.out.println(nome + " [" + circulo.getCusto()+"PM]");
-        System.out.println(escola.getNome() + " " + circulo.getValue()+"ª círculo");
-        System.out.println("Execução: " + execucao.toLowerCase());
-        System.out.println("Alcance: " + alcance.toLowerCase());
-        if (efeito!=null) System.out.println("Efeito: " + efeito.toLowerCase());
-        if (alvo!=null) System.out.println("Alvo: " + alvo.toLowerCase());
-        if(area!=null) System.out.println("Área: " + area.toLowerCase());
-        System.out.println("Duração: " + duracao.toLowerCase());
-        if(resistencia!=null) System.out.println("Resistência: " + resistencia.toLowerCase() + " (" + cd + ")");
-        System.out.println(descricao);
-        imprimirAprimoramentos();
     }
 }

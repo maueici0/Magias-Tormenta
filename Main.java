@@ -20,7 +20,12 @@ public class Main {
             try {
                 System.out.print("Escolha sua opção: ");
                 auxMenu = scanner.nextInt();
-                flag = true;
+                if(auxMenu >= 0 && auxMenu <= 4 ){
+                    flag = true;
+                }
+                else {
+                    System.out.println("Por favor, insira uma opção válida!");
+                }
             }
             catch (InputMismatchException exception){
                 System.out.println("Por favor, insira uma opção válida!");
@@ -187,7 +192,7 @@ public class Main {
                                         break;
                                     case 4:
                                         System.out.println();
-                                        if (bruxo.isFoco() == false) {
+                                        if (!bruxo.isFoco()) {
                                             System.out.println("Você não possui um foco arcano, você precisa fazer um teste de misticismo!");
                                             int auxFoco = 0;
                                             flag = false;
@@ -371,11 +376,17 @@ public class Main {
             System.out.println();
             System.out.println("O que deseja realizar?");
             Menus.imprimirMenuInicial();
+            flag = false;
             do {
                 try {
                     System.out.print("Escolha sua opção: ");
                     auxMenu = scanner.nextInt();
-                    flag = true;
+                    if(auxMenu >= 0 && auxMenu <= 4 ){
+                        flag = true;
+                    }
+                    else {
+                        System.out.println("Por favor, insira uma opção válida!");
+                    }
                 }
                 catch (InputMismatchException exception){
                     System.out.println("Por favor, insira uma opção válida!");

@@ -8,12 +8,14 @@ import Magias.*;
 public class Grimorio {
     private ArrayList<Magia> magiasAprendidas;
 
+
     public Grimorio(){
         magiasAprendidas = new ArrayList<Magia>();
     }
     public Grimorio(ArrayList<Magia> magias){
         magiasAprendidas = magias;
     }
+
 
     public ArrayList<Magia> getMagiasAprendidas() {
         return magiasAprendidas;

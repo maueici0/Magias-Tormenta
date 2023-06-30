@@ -9,6 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Feiticeiro extends Arcanista{
     private Linhagem linhagem;
 
+
     public Feiticeiro(String nome, int nivel, Caminhos caminho, int pontosManaMaximos, int pontosManaAtuais, AtributosChave atributoChave, int valorAtributoChave, ArrayList<Magia> magiasConhecidas, Linhagem linhagem) {
         super(nome, nivel, caminho, pontosManaMaximos, pontosManaAtuais, atributoChave, valorAtributoChave, magiasConhecidas);
         this.linhagem = linhagem;
@@ -62,6 +63,7 @@ public class Feiticeiro extends Arcanista{
         this.linhagem = linhagem;
     }
 
+
     @Override
     public void adicionarMagia() {
         Magia magia = new Magia();
@@ -69,7 +71,6 @@ public class Feiticeiro extends Arcanista{
         magiasConhecidas.add(magia);
         ordernarMagias();
     }
-
     @Override
     public void imprimirArcanista() {
         System.out.println("Nome: " + nome);
